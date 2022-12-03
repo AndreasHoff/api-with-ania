@@ -28,6 +28,7 @@ const newspapers = [
 
 const articles = [];
 newspapers.forEach(newspaper =>  {
+    
     axios.get(newspaper.address)
         .then(response => {
             const html = response.data
@@ -51,6 +52,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/news', (req, res) => {
-    res.json(articles);
+    res.json(articles); 
+})
+
+app.get('/news/:newspaperId', async (req, res) => {
+    const newspaperId = req.params.newspaperId
+
+    const newspaper = newspapers.filter(newspaper => newspaper.name === newspaperId)
+    console.log(newspaper);
+
 })
 app.listen(PORT, () => console.log(`listening on port ${8000}`));
